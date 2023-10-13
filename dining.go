@@ -31,13 +31,12 @@ func (t *Table) Sit(p *Philosopher, wg *sync.WaitGroup) {
 		// attempt to lock chopstick to left and if successful, lock chopstick to the right
 		if t.chopsticks[left].TryLock() {
 			if t.chopsticks[right].TryLock() {
-				fmt.Println("EATING -- Tasty food residue on chopsticks, P", cur)
+				fmt.Println("EATING -- Tasty leftover food residue on utensils, P", cur)
 
 				t.chopsticks[right].Unlock()
-
-				wg.Done()
-
 				t.chopsticks[left].Unlock()
+                                
+				wg.Done()
 				return
 			}
 
@@ -58,12 +57,12 @@ func main() {
 	t.Setup()
 
 	for i := 0; i < NUM_GUESTS; i++ {
-		wg.Add(1)
 		p := Philosopher{chair_index: i}
 		guests = append(guests, p)
 	}
 
 	for i := 0; i < NUM_GUESTS; i++ {
+		wg.Add(1)
 		go t.Sit(&guests[i], &wg)
 	}
 
