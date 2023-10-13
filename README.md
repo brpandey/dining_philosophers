@@ -26,7 +26,8 @@
 $ go build
 ```
 
-```bash
+```bash 
+(Before food portions)
 $ ./dining_philosophers 
 New table arrival! P 0
 New table arrival! P 3
@@ -45,4 +46,41 @@ EATING -- Tasty leftover food residue on utensils, P 1
 New table arrival! P 4
 EATING -- Tasty leftover food residue on utensils, P 4
 FINISHED - Dining Philosophers have finished eating their meals
-```bash
+```
+
+```bash 
+(Current - With food portions)
+$ ./dining_philosophers 
+New table arrival! P 0
+New table arrival! P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+THINKING -- Pontificating brownian motion, P 4
+New table arrival! P 3
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 3
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 3
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 3
+New table arrival! P 1
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 0
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 0
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 0
+ThInKiNg -- Pontificating brownian motion, P 1
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 1
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 1
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 1
+New table arrival! P 2
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 2
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 2
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 2
+ThInKiNg -- Pontificating brownian motion, P 4
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 4
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 4
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 4
+FINISHED - Dining Philosophers have finished eating their meals
+```

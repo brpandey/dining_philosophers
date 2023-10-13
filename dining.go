@@ -7,9 +7,29 @@ import (
 )
 
 var NUM_GUESTS = 5
+var NUM_FOOD_PER_GUEST = 3
 
 type Philosopher struct {
 	chair_index int
+        food_pieces int
+}
+
+func (p *Philosopher) Eat() {
+        p.food_pieces += 1
+        fmt.Printf("EATING -- Portion (%d)", p.food_pieces)
+        fmt.Println("-- Tasty leftover food residue on utensils, P", p.chair_index)
+
+}
+
+func (p *Philosopher) Think(b bool) {
+        cur := p.chair_index
+
+        if b {
+                fmt.Println("THINKING -- Pontificating brownian motion, P", cur)
+        } else {
+                fmt.Println("ThInKiNg -- Pontificating brownian motion, P", cur)
+        }
+        time.Sleep(100)
 }
 
 type Table struct {
@@ -24,28 +44,28 @@ func (t *Table) Sit(p *Philosopher, wg *sync.WaitGroup) {
 	fmt.Println("New table arrival! P", p.chair_index)
 
 	left := p.chair_index
-	cur := p.chair_index
 	right := (p.chair_index + 1) % NUM_GUESTS
 
 	for {
 		// attempt to lock chopstick to left and if successful, lock chopstick to the right
 		if t.chopsticks[left].TryLock() {
 			if t.chopsticks[right].TryLock() {
-				fmt.Println("EATING -- Tasty leftover food residue on utensils, P", cur)
-
+                                p.Eat()
 				t.chopsticks[right].Unlock()
 				t.chopsticks[left].Unlock()
-                                
-				wg.Done()
-				return
-			}
 
-			t.chopsticks[left].Unlock() // don't hold on to first lock if second lock taking unsuccessful
-
+                                // if philosopher has finished all pieces of food, done eating!
+				if p.food_pieces == NUM_FOOD_PER_GUEST  {
+                                        wg.Done()
+                                        return
+                                }
+			} else {
+                                t.chopsticks[left].Unlock() // don't hold on to first lock if second lock taking unsuccessful
+                                p.Think(true)
+                        }
 		} else {
-			fmt.Println("THINKING -- Pontificating brownian motion, P", cur)
-			time.Sleep(100)
-		}
+                        p.Think(false)
+                }
 	}
 }
 
@@ -66,6 +86,6 @@ func main() {
 		go t.Sit(&guests[i], &wg)
 	}
 
-	wg.Wait()
+	wg.Wait() // block until wg value down to 0
 	fmt.Println("FINISHED - Dining Philosophers have finished eating their meals")
 }
