@@ -16,20 +16,17 @@ type Philosopher struct {
 
 func (p *Philosopher) Eat() {
         p.food_pieces += 1
-        fmt.Printf("EATING -- Portion (%d)", p.food_pieces)
-        fmt.Println("-- Tasty leftover food residue on utensils, P", p.chair_index)
-
+        fmt.Println("EATING -- Portion (", p.food_pieces, ")-- Tasty leftover food residue on utensils, P", p.chair_index)
 }
 
-func (p *Philosopher) Think(b bool) {
+func (p *Philosopher) Think(single bool) {
         cur := p.chair_index
 
-        if b {
-                fmt.Println("THINKING -- Pontificating brownian motion, P", cur)
+        if single {
+                fmt.Println("THINKING -- Left utensil put down -- Que sera sera, P", cur)
         } else {
-                fmt.Println("ThInKiNg -- Pontificating brownian motion, P", cur)
+                fmt.Println("THINKING -- No utensils -- Pontificating brownian motion, P", cur)
         }
-        time.Sleep(100)
 }
 
 type Table struct {
@@ -58,13 +55,17 @@ func (t *Table) Sit(p *Philosopher, wg *sync.WaitGroup) {
 				if p.food_pieces == NUM_FOOD_PER_GUEST  {
                                         wg.Done()
                                         return
+                                } else {
+                                        time.Sleep(20)
                                 }
 			} else {
                                 t.chopsticks[left].Unlock() // don't hold on to first lock if second lock taking unsuccessful
                                 p.Think(true)
+                                time.Sleep(50)
                         }
 		} else {
                         p.Think(false)
+                        time.Sleep(50)
                 }
 	}
 }

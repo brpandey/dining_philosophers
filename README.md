@@ -22,11 +22,11 @@
 > unable to eat because there is no right fork, until they starve. Resource starvation, mutual exclusion and livelock are other 
 > types of sequence and access problem. 
 
-```bash
+```shell
 $ go build
 ```
 
-```bash 
+```ocaml
 (Before food portions)
 $ ./dining_philosophers 
 New table arrival! P 0
@@ -48,8 +48,8 @@ EATING -- Tasty leftover food residue on utensils, P 4
 FINISHED - Dining Philosophers have finished eating their meals
 ```
 
-```bash 
-(Current - With food portions)
+```ocaml
+(With food portions)
 $ ./dining_philosophers 
 New table arrival! P 0
 New table arrival! P 4
@@ -82,5 +82,34 @@ ThInKiNg -- Pontificating brownian motion, P 4
 EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 4
 EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 4
 EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 4
+FINISHED - Dining Philosophers have finished eating their meals
+```
+
+```ocaml
+(Current - with food portions and extra sleep after each portion for
+more variability)
+$ ./dining_philosophers 
+New table arrival! P 1
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 1
+New table arrival! P 2
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 2
+New table arrival! P 4
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 4
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 4
+New table arrival! P 0
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 4
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 2
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 2
+THINKING -- No utensils -- Pontificating brownian motion, P 0
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 0
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 0
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 0
+THINKING -- Left utensil put down -- Que sera sera, P 1
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 1
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 1
+New table arrival! P 3
+EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 3
+EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 3
+EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 3
 FINISHED - Dining Philosophers have finished eating their meals
 ```
