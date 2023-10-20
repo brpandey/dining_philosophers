@@ -1,12 +1,20 @@
 > [Problem
 > statement](https://en.wikipedia.org/wiki/Dining_philosophers_problem#Problem_statement) 
 > 
-> Five philosophers dine together at the same table. Each philosopher has their own plate at the table. There is a fork between each plate. 
-> The dish served is a kind of spaghetti which has to be eaten with two forks. Each philosopher can only alternately think and eat. 
-> Moreover, a philosopher can only eat their spaghetti when they have both a left and right fork. Thus two forks will only be available when 
-> their two nearest neighbors are thinking, not eating. After an individual philosopher finishes eating, they will put down both forks. 
+
+
+> Five philosophers dine together at the same table. 
+1. Each philosopher has their own plate at the table. There is a fork between each plate. 
+2. The dish served is a kind of spaghetti which has to be eaten with two forks. 
+3. Each philosopher can only alternately think and eat. 
+4. Moreover, a philosopher can only eat their spaghetti when they have both a left and right fork. 
+   Thus two forks will only be available when their two nearest neighbors are thinking, not eating. 
+5. After an individual philosopher finishes eating, they will put down both forks. 
+
 > The problem is how to design a regimen (a concurrent algorithm) such that no philosopher will starve; i.e., each can forever continue to alternate 
 > between eating and thinking, assuming that no philosopher can know when others may want to eat or think (an issue of incomplete information).
+
+![Picture](https://github.com/brpandey/dining_philosophers/blob/main/table.png?raw=true)
 
 > The problem was designed to illustrate the challenges of avoiding deadlock, a system state in which no progress is possible. To see that a proper solution to this 
 > problem is not obvious, consider a proposal in which each philosopher is instructed to behave as follows:
@@ -48,46 +56,8 @@ EATING -- Tasty leftover food residue on utensils, P 4
 FINISHED - Dining Philosophers have finished eating their meals
 ```
 
-```ocaml
-(With food portions)
-$ ./dining_philosophers 
-New table arrival! P 0
-New table arrival! P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-THINKING -- Pontificating brownian motion, P 4
-New table arrival! P 3
-EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 3
-EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 3
-EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 3
-New table arrival! P 1
-EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 0
-EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 0
-EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 0
-ThInKiNg -- Pontificating brownian motion, P 1
-EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 1
-EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 1
-EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 1
-New table arrival! P 2
-EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 2
-EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 2
-EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 2
-ThInKiNg -- Pontificating brownian motion, P 4
-EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 4
-EATING -- Portion (2)-- Tasty leftover food residue on utensils, P 4
-EATING -- Portion (3)-- Tasty leftover food residue on utensils, P 4
-FINISHED - Dining Philosophers have finished eating their meals
-```
-
-```ocaml
-(Current - with food portions and extra sleep after each portion for
-more variability)
+```elixir
+(With food portions and partial sleep)
 $ ./dining_philosophers 
 New table arrival! P 1
 EATING -- Portion (1)-- Tasty leftover food residue on utensils, P 1
